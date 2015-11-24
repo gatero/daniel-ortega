@@ -1,0 +1,27 @@
+{
+  "name": "_User",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "mother_name": {
+      "type": "string"
+    },
+    "father_name": {
+      "type": "string"
+    },
+    "birth": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}
