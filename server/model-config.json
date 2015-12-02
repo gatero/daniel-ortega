@@ -13,10 +13,6 @@
       "./mixins"
     ]
   },
-  "User": {
-    "dataSource": "mysql",
-    "public": false
-  },
   "AccessToken": {
     "dataSource": "mysql",
     "public": false
@@ -32,5 +28,9 @@
   "Role": {
     "dataSource": "mysql",
     "public": false
+  },
+  "user": {
+    "dataSource": "mysql",
+    "public": true
   }
 }
