@@ -11,7 +11,7 @@ var server     = require('server/server'),
     dataSource = server.dataSources.mysql,
     models     = [
       'User',
-      'Role'
+      'Role',
       'ACL',
       'RoleMapping',
       'AccessToken'

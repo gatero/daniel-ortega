@@ -13,8 +13,7 @@ module.exports = function(app) {
         }
       ],
       roleList    = [
-        { name: 'professor' },
-        { name: 'student' }
+        { name: 'admin' }
       ];
 
   Role
@@ -29,11 +28,12 @@ module.exports = function(app) {
   User
     .create( userList )
     .then(function( user ) {
-      RoleMapping.create({
-        principalType : RoleMapping.USER,
-        principalId   : member[0].id,
-        roleId        : 1
-      });
+      RoleMapping
+        .create({
+          principalType : RoleMapping.USER,
+          principalId   : user[0].id,
+          roleId        : 1
+        });
       console.log('[+]: Test user created');
     })
     .catch(function(error) {
