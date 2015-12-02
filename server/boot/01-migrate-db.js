@@ -10,7 +10,7 @@ var server     = require('server/server'),
     events     = require('events'),
     dataSource = server.dataSources.mysql,
     models     = [
-      'User',
+      'user',
       'Role',
       'ACL',
       'RoleMapping',
