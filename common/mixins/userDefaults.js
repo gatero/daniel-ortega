@@ -2,8 +2,7 @@
 
 require('rootpath')();
 
-var loopback = require('loopback'),
-    app      = loopback(),
+var app      = require('server/server'),
     log      = require('debug')('log'),
     _        = require('lodash');
 

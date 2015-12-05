@@ -23,7 +23,7 @@ module.exports = function(app) {
       });
       RoleMapping.create({
         principalType : RoleMapping.USER,
-        principalId   : users[0].id,
+        principalId   : users[1].id,
         roleId        : 2
       });
       log('[+]: Test User created');
