@@ -1,3 +1,11 @@
+'use strict';
+
+require('rootpath')();
+
+var app = require('server/server'),
+    log = require('debug')('log'),
+    _   = require('lodash');
+
 module.exports = function(Model, options) {
 
   Model.beforeRemote('create', function(context, model, next) {
@@ -11,8 +19,12 @@ module.exports = function(Model, options) {
   Model.observe('before save', function(context, next) {
     if(!context.isNewInstance) {
       var instance = context.currentInstance;
-      instance.lastUpdated = Date.now();
-      instance.modified    = Date.now();
+      try {
+        instance.lastUpdated = Date.now();
+        instance.modified    = Date.now();
+      } catch(error) {
+        log(error);
+      } 
     }
     next();
   });
