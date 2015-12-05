@@ -1,42 +1,32 @@
 'use strict';
 
+require('rootpath')();
+var log = require('debug')('log');
+
 module.exports = function(app) {
-  var User        = app.models.User,
+  var user        = app.models.user,
       Role        = app.models.Role,
       RoleMapping = app.models.RoleMapping,
-      userList    = [
-        {
-          name     : 'test',
-          email    : 'test@test.mx',
-          password : 'test',
-          realm    : 'admin'
-        }
-      ],
-      roleList    = [
-        { name: 'admin' }
-      ];
+      userList    = require('common/seeds/test-users.json'),
+      roleList    = require('common/seeds/user-roles.json');
 
-  Role
-    .create( roleList )
-    .then(function( roles ) {
-      console.log('[+]: Roles: ' + roles + ' created');
-    })
-    .catch(function( error ) {
-      console.log(error);
+  Role.count(function(error, count) {
+    if(count > 0) return false;
+    Role.create( roleList, function(error, roles) {
+      log('[+]: Roles created');
     });
-
-  User
-    .create( userList )
-    .then(function( user ) {
-      RoleMapping
-        .create({
-          principalType : RoleMapping.USER,
-          principalId   : user[0].id,
-          roleId        : 1
-        });
-      console.log('[+]: Test user created');
-    })
-    .catch(function(error) {
-      console.log(error);
+    user.create( userList, function(error, users) {
+      RoleMapping.create({
+        principalType : RoleMapping.USER,
+        principalId   : users[0].id,
+        roleId        : 1
+      });
+      RoleMapping.create({
+        principalType : RoleMapping.USER,
+        principalId   : users[0].id,
+        roleId        : 2
+      });
+      log('[+]: Test User created');
     });
+  });
 };
