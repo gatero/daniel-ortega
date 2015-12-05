@@ -1,0 +1,14 @@
+[
+  {
+    "name" : "test",
+    "email" : "test.admin@test.mx",
+    "password" : "test",
+    "realm" : "admin"
+  },
+  {
+    "name" : "test",
+    "email" : "test.guest@test.mx",
+    "password" : "test",
+    "realm" : "guest"
+  }
+]

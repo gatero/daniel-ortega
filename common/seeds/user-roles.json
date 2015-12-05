@@ -1,0 +1,10 @@
+[
+  {
+    "name" : "admin",
+    "description" : "User with full access permisons"
+  },
+  {
+    "name" : "guest",
+    "description" : "User with read access permisons"
+  }
+]
