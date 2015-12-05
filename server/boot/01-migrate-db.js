@@ -9,26 +9,22 @@ require('rootpath')();
 var server     = require('server/server'),
     events     = require('events'),
     dataSource = server.dataSources.mysql,
-    models     = [
-      'user',
-      'Role',
-      'ACL',
-      'RoleMapping',
-      'AccessToken'
-    ];
+    log        = require('debug')('log'),
+    models     = require('server/model-config.json');
 
 events.EventEmitter.prototype._maxListeners = 50;
+models = Object.keys(models);
 
 dataSource.isActual( models, function(error, actual) {
   if( !actual ) {
     dataSource
       .autoupdate( models )
       .then(function() {
-        console.log('[db]: Models : [' + models + '] created in ' + dataSource.adapter.name);
+        log('[db]: Models : created or updated in ' + dataSource.adapter.name);
         dataSource.disconnect();
       })
-      .catch(function(error) { console.log(error); });
+      .catch(function(error) { log(error); });
   } else {
-    console.log('[!]: Data models are updated');
+    log('[!]: Data models are updated');
   }
 });
