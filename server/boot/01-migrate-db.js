@@ -14,6 +14,7 @@ var server     = require('server/server'),
 
 events.EventEmitter.prototype._maxListeners = 50;
 models = Object.keys(models);
+models.pop();
 
 dataSource.isActual( models, function(error, actual) {
   if( !actual ) {
