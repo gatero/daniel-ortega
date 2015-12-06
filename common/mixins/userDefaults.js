@@ -9,9 +9,8 @@ var app    = require('server/server'),
     path   = require('path');
 
 module.exports = function(Model, options) {
-  Model.beforeRemote('create', function(context, model, next){
-    var instance = context.req.body;
-    next();
+  Model.getApp(function(err, app) {
+    Model.email.attachTo(app.dataSources.mail);
   });
 
   Model.afterRemote('create', function(context, model, next){
@@ -25,18 +24,18 @@ module.exports = function(Model, options) {
           redirect: '/verified',
           user: model
         };
+
     model.verify(options, function(error, response) {
       if (error) return next(error);
-
       console.log('> verification email sent:', response);
       context.res.render('response', {
         title: 'Signed up successfully',
-        content: 'Please check your email and click on the verification link '
-          + 'before logging in.',
+        content: 'Please check your email and click on the verification link before logging in.',
         redirectTo: '/',
         redirectToLinkText: 'Log in'
       });
     });
+
     // Create rolemapping
     RoleMapping
       .create({
