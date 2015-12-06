@@ -17,14 +17,10 @@ module.exports = function(Model, options) {
   });
 
   Model.observe('before save', function(context, next) {
-    if(!context.isNewInstance) {
+    if(!context.isNewInstance && context.currentInstance != undefined) {
       var instance = context.currentInstance;
-      try {
-        instance.lastUpdated = Date.now();
-        instance.modified    = Date.now();
-      } catch(error) {
-        log(error);
-      } 
+      instance.lastUpdated = Date.now();
+      instance.modified    = Date.now();
     }
     next();
   });
