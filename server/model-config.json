@@ -32,5 +32,8 @@
   "user": {
     "dataSource": "mysql",
     "public": true
+  },
+  "Email": {
+    "dataSource": "mail"
   }
 }
