@@ -51,4 +51,21 @@ module.exports = function(Model, options) {
       });
     next();
   });
+  
+  //send password reset link when requested
+  Model.on('resetPasswordRequest', function(info) {
+    var url = 'http://' + config.host + ':' + config.port + '/reset-password';
+    var html = 'Click <a href="' + url + '?access_token=' +
+        info.accessToken.id + '">here</a> to reset your password';
+
+    Model.app.models.Email.send({
+      to: info.email,
+      from: info.email,
+      subject: 'Password reset',
+      html: html
+    }, function(err) {
+      if (err) return log('> error sending password reset email');
+      log('> sending password reset email to:', info.email);
+    });
+  });
 }
